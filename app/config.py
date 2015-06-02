@@ -6,7 +6,7 @@ class Config(object):
     SECRET_KEY = 'dev key'
     MEDIA_URL = 'media'
 
-    NOTEBOOK_PATH = '/Users/moogoo/Dropbox/n/Notebook1'
+    NOTEBOOK_PATH = '/Users/moogoo/Dropbox/7catty'
     
 class ProductionConfig(Config):
     DEVEL = False
