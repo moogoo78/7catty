@@ -27,6 +27,7 @@ def notebook():
     
     tab_path = os.path.join(notebook_path, notebook)
     tablist = None
+
     for root, dirs, files in os.walk(tab_path):
         if root == tab_path:
             tablist = dirs
@@ -40,7 +41,11 @@ def notebook():
             
     page = page or pagelist[0]
 
+
+    from docutils.core import publish_parts
+
     content = open(os.path.join(page_path, page)).read().decode('u8')
+    body = publish_parts(content, writer_name='html')['html_body']
     
     return render_template('notebook.html',
                            notebook=notebook,
@@ -49,7 +54,7 @@ def notebook():
                            tablist=tablist,
                            page=page,
                            pagelist=pagelist,
-                           content=content)
+                           body=body)
 
 
 if __name__ == '__main__':

@@ -2,7 +2,7 @@
 
 {% block main %}
 {% for i in notebooks %}
-<div><a href="{{ url_for('notebook') }}">{{ i }}</a></div>
+<div><a href="{{ url_for('notebook', n=i) }}">{{ i }}</a></div>
 {% endfor %}
 Notebook: {{ notebook }}
 <hr>
@@ -10,5 +10,5 @@ Notebook: {{ notebook }}
 <hr>
 [ {% for i in pagelist %}<a href="{{ url_for('notebook',n=notebook, t=tab, p=i)}}">{{ i }}</a>{% if not loop.last %} | {% endif %}{% endfor %}]
 <hr>
-{{ content }}
+{{ body|safe }}
 {% endblock %}
