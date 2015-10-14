@@ -1,0 +1,64 @@
+.card_list ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul {
+  overflow: auto;
+  list-style-type: none;
+}
+
+nav li {
+  height: 16px;
+  float: left;
+  margin-right: 0px;
+  border-right: 1px solid #aaa;
+  padding: 0 10px;
+}
+ 
+nav li:last-child {
+  border-right: none;
+}
+ 
+nav li a {
+  text-decoration: none;
+  color: #ccc;
+  font: 16px/1 Helvetica, Verdana, sans-serif;
+  text-transform: uppercase;
+}
+ 
+nav li a:hover {
+  color: #666;
+}
+ 
+nav li.active a {
+  font-weight: bold;
+  color: #333;
+}
+
+.layout {
+    margin: 30px;
+}
+.card_list {
+    line-height:30px;
+    background-color:#eeeeee;
+    height:300px;
+    width:100px;
+    float:left;
+    padding:5px; 
+}
+.main {
+    left: 20px;
+    width:550px;
+    float:left;
+    padding:10px; 
+}
+
+.gray {
+    font-size:1.5em;
+    font-weight: bold;
+    color: #f9f9f9;
+}
+
+.clear { clear: both;}

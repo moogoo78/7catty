@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block main %}
+<nav>
+  <ul>
+    {% for i in card_holder %}
+    <li><a href="{{ url_for('card', nav=i) }}">{{ i }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>
+<div class="layout">
+  <div class="card_list">
+    <ul>
+    {% for i in cards %}
+    <li><a href="{{ url_for('card', nav=request.args.get('nav', ''), card=i) }}">{{ i }}</a></li>
+    {% endfor %}
+    </ul>
+  </div>
+  <div class="main">
+    {{ body|safe }}
+  </div>
+</div>
+<div class="clear"></div>
+<footer class="gray">老僧在青州作得一領布杉，重七斤。</footer>
+{% endblock %}

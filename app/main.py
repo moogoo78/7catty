@@ -3,8 +3,9 @@
 
 
 import os
-from flask import Flask, render_template, redirect, request, url_for, abort, current_app
+from docutils.core import publish_parts
 
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -12,50 +13,33 @@ app.config.from_object('config.DevelConfig')
 
 
 @app.route('/')
-def notebook():
-    nblist = []
-    notebook_path = current_app.config['NOTEBOOK_PATH']
-
-    nb = request.args.get('n', '')
-    tab = request.args.get('t', '')
-    page = request.args.get('p', '')
-
-    for root, dirs, files in os.walk(notebook_path):
-        if root == notebook_path:
-            nblist = dirs
-    notebook = nb or nblist[0]
+def card():
     
-    tab_path = os.path.join(notebook_path, notebook)
-    tablist = None
+    src_dir = app.config['SRC_DIR']
 
-    for root, dirs, files in os.walk(tab_path):
-        if root == tab_path:
-            tablist = dirs
-    tab = tab or tablist[0]
-    
-    page_path = os.path.join(tab_path, tab)
-    pagelist = None
-    for root, dirs, files in os.walk(page_path):
-        if root == page_path:
-            pagelist = files
-            
-    page = page or pagelist[0]
+    card_holder = []
+    for i in os.listdir(src_dir):
+        if os.path.isdir(os.path.join(src_dir, i)):
+            card_holder.append(i)
 
+    cards = []
+    nav = request.args.get('nav', '')
+    if nav:
+        for i in os.listdir(os.path.join(src_dir, nav)):
+            fn, ext = os.path.splitext(i)
+            if ext == '.txt':
+                cards.append(fn)
 
-    from docutils.core import publish_parts
-
-    content = open(os.path.join(page_path, page)).read().decode('u8')
-    body = publish_parts(content, writer_name='html')['html_body']
-    
-    return render_template('notebook.html',
-                           notebook=notebook,
-                           notebooks=nblist,
-                           tab=tab,
-                           tablist=tablist,
-                           page=page,
-                           pagelist=pagelist,
+    body = ''
+    card = request.args.get('card', '')
+    if nav and card:
+        content = open(os.path.join(src_dir, nav, '%s.txt'%card)).read().decode('u8')
+        body = publish_parts(content, writer_name='html')['html_body']
+        
+    return render_template('index.html',
+                           card_holder=card_holder,
+                           cards=cards,
                            body=body)
 
-
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0', port=8077)
