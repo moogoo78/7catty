@@ -19,7 +19,7 @@ def card():
 
     card_holder = []
     for i in os.listdir(src_dir):
-        if os.path.isdir(os.path.join(src_dir, i)):
+        if i not in app.config['EXCLUDE_DIR_LIST'] and os.path.isdir(os.path.join(src_dir, i)):
             card_holder.append(i)
 
     cards = []
@@ -42,4 +42,4 @@ def card():
                            body=body)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8077)
+    app.run(host='0.0.0.0', port=7821)
